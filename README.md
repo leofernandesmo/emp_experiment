@@ -3,11 +3,13 @@ EMP - Equivalent Mutant Problem
 
 ## Dependencies
 ### jDolly
- - TODO
+   - TODO
+ 
 ### Mutation Testing Tool
- - TODO
+   - TODO
+ 
 ### SafeRefactor
- - TODO
+   - TODO
 
 ## Process
  - Step01
