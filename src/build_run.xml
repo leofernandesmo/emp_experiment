@@ -1,0 +1,41 @@
+<project name="1RefactoringProject" default="run_tests" basedir=".">
+
+
+
+	<path id="classpath_source">
+		<fileset dir="${libClasspath}/" includes="*.jar *.zip" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="${report.dir}"/>
+	</target>
+
+	<target name="clean" depends="init">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${report.dir}" includes="**/*.xml" />
+		</delete>
+	</target>
+
+	<target name="run_tests" depends="clean">
+		<echo>Running JUnit to test on ${binClasspath}</echo>
+
+		<junit printsummary="yes" showoutput="no" haltonfailure="no" fork="true" maxmemory="512m" timeout="120000">
+
+			<classpath>
+				<pathelement location="${binClasspath}" />
+				<pathelement location="${tests.dir}/" />
+				<pathelement path="${extra.jars}"/>
+				<pathelement path="${java.class.path}" />
+			</classpath>
+
+			<classpath refid="classpath_source" />			
+			<formatter type="xml" />
+			<batchtest todir="${report.dir}/">
+				<fileset dir="${tests.dir}/">
+					<include name="*Test*.class" />
+					<exclude name="RandoopTest.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+</project>

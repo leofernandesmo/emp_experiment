@@ -1,0 +1,31 @@
+<project name="saferefactor" default="analyze" basedir="."> 
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	
+
+
+	<path id="classpath_source">
+		<fileset dir="${sourceLib}/" includes="*.*" />
+	</path>
+
+
+	<target name="analyze">
+
+		<echo>
+			Analyzing ${source}
+			
+			Saferefactor ${extra.jars} 
+			
+		</echo>
+		
+		<java classname="saferefactor.core.analysis.analyzer.ProjectAnalyzer" logerror="true" failonerror="true" fork="true" maxmemory="256m">
+			<arg value="${sourceBin}" />
+			<classpath>
+				<pathelement path="${sourceBin}" />
+				<pathelement path="${java.class.path}"/>
+				<pathelement path="${extra.jars}"/>
+			</classpath>						
+			<classpath refid="classpath_source" />
+		</java>
+	</target>
+</project>

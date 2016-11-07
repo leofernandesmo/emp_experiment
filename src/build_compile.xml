@@ -1,0 +1,41 @@
+<project name="saferefactor" default="compile" basedir=".">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+	<path id="classpath_source">
+		<fileset dir="${libClasspath}/" includes="*.jar,*.zip" />
+	</path>
+
+	<target name="init">
+		<mkdir dir="${dest}"/>
+	</target>
+		
+	<target name="clean" depends="init">
+		<delete includeEmptyDirs="true">
+			<fileset dir="${dest}" includes="**/*.class" />
+		</delete>
+	</target>
+
+	<target name="compile" depends="clean">
+
+		<echo>
+			Compiling ${src} to ${dest}
+			BinClassPath: ${binClasspath}
+			<!--compiler ${compiler}-->
+		</echo>
+
+		<!-- option to set compiler removed: executable="${compiler}"-->
+		
+		<javac encoding="iso-8859-1" fork="yes" failonerror="true" memorymaximumsize="512m" includes="**/*.java"
+			debug="on" srcdir="${src}/" destdir="${dest}/">
+			<classpath>
+				<pathelement location="${binClasspath}/" />
+				<pathelement path="${java.class.path}"/>
+				<pathelement path="${extra.jars}"/>
+			</classpath>
+			<classpath refid="classpath_source" />			
+		</javac>
+
+	</target>
+</project>
